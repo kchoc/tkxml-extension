@@ -1,0 +1,131 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "tkxml",
+	"scopeName": "source.tkxml",
+	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#tags"
+		}
+	],
+	"repository": {
+		"comments": {
+			"patterns": [
+				{
+					"begin": "#\\!",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.comment.tkxml"
+						}
+					},
+					"end": "\\n",
+					"name": "comment.line.number-sign.tkxml"
+				},
+				{
+					"captures": {
+						"0": {
+							"name": "punctuation.definition.comment.tkxml"
+						}
+					},
+					"match": "/\\*\\*/",
+					"name": "comment.block.empty.tkxml"
+				},
+				{
+					"include": "#comments-inline"
+				}
+			]
+		},
+		"comments-inline": {
+			"patterns": [
+				{
+					"begin": "(^[\\s]*)?(?=//)",
+					"beginCaptures": {
+						"1": {
+							"name": "punctuation.whitespace.comment.leading.tkxml"
+						}
+					},
+					"end": "$",
+					"patterns": [
+						{
+							"begin": "//",
+							"beginCaptures": {
+								"0": {
+									"name": "punctuation.definition.comment.tkxml"
+								}
+							},
+							"end": "\\n",
+							"name": "comment.line.double-slash.tkxml"
+						}
+					]
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.tkxml",
+			"patterns": [
+				{
+					"begin": "\"",
+					"end": "\"",
+					"name": "string.quoted.double.tkxml",
+					"patterns": [
+						{
+							"name": "constant.character.escape.tkxml",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"begin": "'",
+					"end": "'",
+					"name": "string.quoted.single.tkxml",
+					"patterns": [
+						{
+							"name": "constant.character.escape.tkxml",
+							"match": "\\\\."
+						}
+					]
+				}
+			]
+		},
+		"tags": {
+			"patterns": [
+				{
+					"name": "meta.tag.opening.tkxml",
+					"begin": "<([a-zA-Z0-9_:-]+)",
+					"beginCaptures": {
+						"0": { "name": "punctuation.definition.tag.tkxml" },
+						"1": { "name": "entity.name.tag.tkxml" }
+					},
+					"end": "(>|/>)",
+					"endCaptures": {
+						"0": { "name": "punctuation.definition.tag.tkxml" }
+					},
+					"patterns": [
+						{
+							"name": "entity.other.attribute-name.tkxml",
+							"match": "\\b([a-zA-Z0-9_:-]+)(?=\\=)"
+						},
+						{
+							"include": "#strings"
+						}
+					]
+				},
+				{
+					"name": "meta.tag.closing.tkxml",
+					"begin": "<\/([a-zA-Z0-9_:-]+)",
+					"beginCaptures": {
+						"0": { "name": "punctuation.definition.tag.tkxml" },
+						"1": { "name": "entity.name.tag.tkxml" }
+					},
+					"end": ">",
+					"endCaptures": {
+						"0": { "name": "punctuation.definition.tag.tkxml" }
+					},
+					"patterns": []
+				}
+			]
+		}
+	}
+}

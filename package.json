@@ -1,0 +1,39 @@
+{
+  "name": "tkxml-extension",
+  "displayName": "Tkxml Extension",
+  "description": "Language Support for .tkxml files",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "main": "src/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "tkxml",
+        "aliases": [
+          "tkxml",
+          "tkxml"
+        ],
+        "extensions": [
+          "tkxml"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "tkxml",
+        "scopeName": "source.tkxml",
+        "path": "./syntaxes/tkxml.tmLanguage.json"
+      }
+    ],
+    "commands": []
+  },
+  "dependencies": {
+    "font-scanner": "^0.2.1"
+  }
+}
