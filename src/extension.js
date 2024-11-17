@@ -56,7 +56,8 @@ function activate(context) {
                     const elements = [
                         "frame",
                         "canvas",
-                        "menu"
+                        "menu",
+                        "page"
                     ];
                     const selfClosingElements = [
                         "image",
@@ -102,40 +103,44 @@ function activate(context) {
 }
 
 function getAttributesForElement(elementName) {
+    const packAttrs = [
+        "after", "anchor", "before", "expand","fill", "side", "ipadx", "ipady", "padx", "pady", "in_"
+    ]
+
     const attributes = {
         frame: ["background", "bd", "bg", "borderwidth", "class", "colormap", "container",
                 "cursor", "height", "highlightbackground", "highlightcolor", "highlightthickness",
-                "relief", "takefocus", "visual", "width", "controller", "id"],
+                "relief", "takefocus", "visual", "width", "controller", "id", ...packAttrs],
 
         canvas: ["background", "bd", "bg", "borderwidth", "closeenough", "confine", "cursor", "height",
                 "highlightbackground", "highlightcolor", "highlightthickness", "insertbackground",
                 "insertborderwidth", "insertofftime", "insertontime", "insertwidth", "offset", "relief",
                 "scrollregion", "selectbackground", "selectborderwidth", "selectforeground", "state",
                 "takefocus", "width", "xscrollcommand", "xscrollincrement", "yscrollcommand", "yscrollincrement",
-                "controller", "id"],
+                "controller", "id", ...packAttrs],
 
-        label: ["activebackground", "activeforeground", "anchor", "background", "bitmap", "borderwidth",
-                "cursor", "disabledforeground", "font", "foreground", "highlightbackground", "highlightcolor",
-                "highlightthickness", "image", "justify", "padx", "pady", "relief", "takefocus", "text",
-                "textvariable", "underline", "wraplength", "height", "state", "width", "controller", "id"],
+        label: ["activebackground", "activeforeground", "background", "bitmap", "borderwidth", "cursor",
+                "disabledforeground", "font", "foreground", "highlightbackground", "highlightcolor",
+                "highlightthickness", "image", "justify", "relief", "takefocus", "text", "textvariable",
+                "underline", "wraplength", "height", "state", "width", "controller", "id", ...packAttrs],
 
-        button: ["activebackground", "activeforeground", "anchor", "background", "bitmap", "borderwidth",
-                "command", "compound", "default", "cursor", "disabledforeground", "font", "foreground",
-                "height", "highlightbackground", "highlightcolor", "highlightthickness", "image", "justify",
-                "overrelief", "padx", "pady", "relief", "repeatdelay", "state", "repeatinterval", "takefocus",
-                "text", "textvariable", "underline", "width", "wraplength", "controller", "id"],
+        button: ["activebackground", "activeforeground", "background", "bitmap", "borderwidth", "command",
+                "compound", "default", "cursor", "disabledforeground", "font", "foreground", "height",
+                "highlightbackground", "highlightcolor", "highlightthickness", "image", "justify",
+                "overrelief", "relief", "repeatdelay", "state", "repeatinterval", "takefocus", "text",
+                "textvariable", "underline", "width", "wraplength", "controller", "id", ...packAttrs],
 
-        checkbutton: ["activebackground", "activeforeground", "anchor", "background", "bd", "bg", "bitmap",
-                "borderwidth", "command", "cursor", "disabledforeground", "fg", "font", "foreground", "height",
+        checkbutton: ["activebackground", "activeforeground", "background", "bd", "bg", "bitmap", "borderwidth",
+                "command", "cursor", "disabledforeground", "fg", "font", "foreground", "height",
                 "highlightbackground", "highlightcolor", "highlightthickness", "image", "indicatoron", "justify",
-                "offvalue", "onvalue", "padx", "pady", "relief", "selectcolor", "selectimage", "state", "takefocus",
-                "text", "textvariable", "underline", "variable", "width", "wraplength", "controller", "id"],
+                "offvalue", "onvalue", "relief", "selectcolor", "selectimage", "state", "takefocus", "text",
+                "textvariable", "underline", "variable", "width", "wraplength", "controller", "id", ...packAttrs],
 
-        radiobutton: ["activebackground", "activeforeground", "anchor", "background", "bd", "bg", "bitmap", "borderwidth",
+        radiobutton: ["activebackground", "activeforeground", "background", "bd", "bg", "bitmap", "borderwidth",
                 "command", "cursor", "disabledforeground", "fg", "font", "foreground", "height", "highlightbackground",
-                "highlightcolor", "highlightthickness", "image", "indicatoron", "justify", "padx", "pady", "relief",
-                "selectcolor", "selectimage", "state", "takefocus", "text", "textvariable", "underline", "value",
-                "variable", "width", "wraplength", "controller", "id"],
+                "highlightcolor", "highlightthickness", "image", "indicatoron", "justify", "relief", "selectcolor",
+                "selectimage", "state", "takefocus", "text", "textvariable", "underline", "value",
+                "variable", "width", "wraplength", "controller", "id", ...packAttrs],
 
         spinbox: ["activebackground", "background", "borderwidth", "cursor", "exportselection", "font", "foreground",
             "highlightbackground", "highlightcolor", "highlightthickness", "insertbackground", "insertborderwidth",
@@ -143,21 +148,21 @@ function getAttributesForElement(elementName) {
             "selectbackground", "selectborderwidth", "selectforeground", "takefocus", "textvariable", "xscrollcommand",
             "buttonbackground", "buttoncursor", "buttondownrelief", "buttonuprelief", "command", "disabledbackground",
             "disabledforeground", "format", "from_", "invalidcommand", "increment", "readonlybackground", "state", "to",
-            "validate", "validatecommand", "values", "width", "wrap", "controller", "id"],
+            "validate", "validatecommand", "values", "width", "wrap", "controller", "id", ...packAttrs],
 
         entry: ["background", "bd", "bg", "borderwidth", "cursor", "exportselection", "fg", "font", "foreground",
             "highlightbackground", "highlightcolor", "highlightthickness", "insertbackground", "insertborderwidth",
             "insertofftime", "insertontime", "insertwidth", "invalidcommand", "invcmd", "justify", "relief",
-            "selectbackground", "selectborderwidth", "selectforeground", "show", "state", "takefocus",
-            "textvariable", "validate", "validatecommand", "vcmd", "width", "xscrollcommand", "controller", "id"],
+            "selectbackground", "selectborderwidth", "selectforeground", "show", "state", "takefocus", "textvariable",
+            "validate", "validatecommand", "vcmd", "width", "xscrollcommand", "controller", "id", ...packAttrs],
 
         combobox: ["class", "cursor", "style", "takefocus", "exportselection", "justify", "height", "postcommand",
-            "state", "textvariable", "values", "width", "controller", "id"],
+            "state", "textvariable", "values", "width", "controller", "id", ...packAttrs],
         
         listbox: ["background", "bd", "bg", "borderwidth", "cursor", "exportselection", "fg", "font", "foreground",
             "height", "highlightbackground", "highlightcolor", "highlightthickness", "relief", "selectbackground",
             "selectborderwidth", "selectforeground", "selectmode", "setgrid", "takefocus", "width", "xscrollcommand",
-            "yscrollcommand", "listvariable", "controller", "id"],
+            "yscrollcommand", "listvariable", "controller", "id", ...packAttrs],
 
         menu: ["activebackground", "activeborderwidth", "activeforeground", "background", "bd", "bg", "borderwidth",
             "cursor", "disabledforeground", "fg", "font", "foreground", "postcommand", "relief", "selectcolor",
@@ -166,10 +171,14 @@ function getAttributesForElement(elementName) {
         menuoption: ["accelerator", "activebackground", "activeforeground", "background", "bitmap", "columnbreak",
             "command", "compound", "font", "foreground", "controller", "id"],
 
-        image: ["activebackground", "activeforeground", "anchor", "background", "bitmap", "borderwidth",
-                "cursor", "disabledforeground", "font", "foreground", "highlightbackground", "highlightcolor",
-                "highlightthickness", "image", "justify", "padx", "pady", "relief", "takefocus", "text",
-                "textvariable", "underline", "wraplength", "height", "state", "width", "file", "controller", "id"],
+        image: ["activebackground", "activeforeground", "background", "bitmap", "borderwidth", "cursor",
+            "disabledforeground", "font", "foreground", "highlightbackground", "highlightcolor", "highlightthickness",
+            "image", "justify", "relief", "takefocus", "text", "textvariable", "underline", "wraplength", "height",
+            "state", "width", "file", "controller", "id", ...packAttrs],
+
+        page: ["name", "background", "bd", "bg", "borderwidth", "class", "colormap", "container",
+                "cursor", "height", "highlightbackground", "highlightcolor", "highlightthickness",
+                "relief", "takefocus", "visual", "width", "controller", "id"],
 
         title: ["title"],
         options: [],
@@ -230,12 +239,15 @@ function getAttributeValuesFor(attributeName) {
         type: ["True", "False"],
         columnbreak: ["True", "False"],
         accelerator: ["^n", "^s"],
-        file: ["./"]
+        file: ["./"],
+        
 
         
         // Missing: colormap, class, container, takefocus, visual, scrollregion, image, textvariable, command, indicatoron, variable,
         // selectimage format invalidcommand, validate, validatecommand, invcmd, vcmd, xscrollcommand, yscrollcommand, style, postcommand,
-        // values, listvariable, tearoffcommand
+        // values, listvariable, tearoffcommand, page_name
+
+        // Might be missing pack attributes
 
     };
     return attributeValues[attributeName] || [];
