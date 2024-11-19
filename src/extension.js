@@ -176,9 +176,9 @@ function getAttributesForElement(elementName) {
             "image", "justify", "relief", "takefocus", "text", "textvariable", "underline", "wraplength", "height",
             "state", "width", "file", "controller", "id", ...packAttrs],
 
-        page: ["name", "background", "bd", "bg", "borderwidth", "class", "colormap", "container",
+        page: ["name", "section", "background", "bd", "bg", "borderwidth", "class", "colormap", "container",
                 "cursor", "height", "highlightbackground", "highlightcolor", "highlightthickness",
-                "relief", "takefocus", "visual", "width", "controller", "id"],
+                "relief", "takefocus", "visual", "width", "controller", "id", ...packAttrs],
 
         title: ["title"],
         options: [],
