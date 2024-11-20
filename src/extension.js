@@ -73,7 +73,8 @@ function activate(context) {
                         "title",
                         "options",
                         "geometry",
-                        "configure"
+                        "configure",
+                        "variable"
                     ];
 
                     elements.forEach(element => {
@@ -179,6 +180,8 @@ function getAttributesForElement(elementName) {
         page: ["name", "section", "background", "bd", "bg", "borderwidth", "class", "colormap", "container",
                 "cursor", "height", "highlightbackground", "highlightcolor", "highlightthickness",
                 "relief", "takefocus", "visual", "width", "controller", "id", ...packAttrs],
+        
+        variable: ["name", "type", "value", "array", "read", "write", "unset"],
 
         title: ["title"],
         options: [],
@@ -240,7 +243,7 @@ function getAttributeValuesFor(attributeName) {
         columnbreak: ["True", "False"],
         accelerator: ["^n", "^s"],
         file: ["./"],
-        
+        type: ["int", "string", "bool", "double"]
 
         
         // Missing: colormap, class, container, takefocus, visual, scrollregion, image, textvariable, command, indicatoron, variable,
